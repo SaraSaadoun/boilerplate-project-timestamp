@@ -33,7 +33,7 @@ app.get("/api", function (req, res) {
 
   let dateObj = new Date();
   res.json({
-    unix: Math.round(dateObj.getTime()).toString(),
+    unix: Math.round(dateObj.getTime()),
     utc: dateObj.toUTCString(),
   });
 });
@@ -44,22 +44,20 @@ app.get("/api/:any", function (req, res) {
   if (!Number.isNaN(+anyString)) {
     let dateObj = new Date(+anyString);
     res.json({
-      unix: Math.round(dateObj.getTime()).toString(),
+      unix: Math.round(dateObj.getTime()),
       utc: dateObj.toUTCString(),
     });
   } else {
     const dateString = Date.parse(anyString);
     let dateObj = new Date(dateString);
     //valid date ?
-    if (!Number.isNaN(+dateObj.getTime())) {
+    if (!Number.isNaN(dateObj.getTime())) {
       res.json({
-        unix: Math.round(dateObj.getTime()).toString(),
+        unix: Math.round(dateObj.getTime()),
         utc: dateObj.toUTCString(),
       });
     } else {
-      res.json({
-        error: "Invalid Date",
-      });
+      res.json({ error: "Invalid Date" });
     }
   }
 });
